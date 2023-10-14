@@ -6,5 +6,8 @@ contracts/typechain-types/
 contracts/artifacts/
 contracts/cache/
 artifacts/
+backend/node_modules
+backend/dist
+frontend/node_modules
 .github
 cache/
