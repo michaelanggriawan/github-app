@@ -53,7 +53,7 @@ export default function GithubProfile({ profile, repos }: { profile: Profile, re
             src={profile.avatar_url}
             width={160}
             height={160}
-            alt="Gambar Profil"
+            alt="Profil"
             className="w-24 h-24 mx-auto rounded-full"
           />
           <h2 className="text-xl font-semibold text-center mt-4">{profile.login}</h2>
