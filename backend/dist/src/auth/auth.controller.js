@@ -17,9 +17,11 @@ const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
 const jwt_1 = require("@nestjs/jwt");
 const swagger_1 = require("@nestjs/swagger");
+const config_1 = require("@nestjs/config");
 let AuthController = class AuthController {
-    constructor(jwtService) {
+    constructor(jwtService, configService) {
         this.jwtService = jwtService;
+        this.configService = configService;
     }
     async login() {
     }
@@ -27,8 +29,11 @@ let AuthController = class AuthController {
         const user = req.user;
         const payload = { sub: user.id, username: user.username };
         const token = this.jwtService.sign(payload);
-        res.cookie('access_token', token);
-        res.redirect(`http://localhost:3001/${user.username}`);
+        res.cookie('access_token', token, {
+            secure: this.configService.get('ENV') === 'PRODUCTION',
+            httpOnly: true,
+        });
+        res.redirect(`https://github-app-production-b24a.up.railway.app/${user.username}`);
     }
 };
 exports.AuthController = AuthController;
@@ -54,6 +59,6 @@ exports.AuthController = AuthController = __decorate([
         path: 'auth',
         version: '1',
     }),
-    __metadata("design:paramtypes", [jwt_1.JwtService])
+    __metadata("design:paramtypes", [jwt_1.JwtService, config_1.ConfigService])
 ], AuthController);
 //# sourceMappingURL=auth.controller.js.map
