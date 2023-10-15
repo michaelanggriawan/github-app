@@ -1,5 +1,3 @@
-# Dog breeds Front End
-
 Shipped with following developer tools:
 
 ### Backend Development
