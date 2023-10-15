@@ -25,7 +25,7 @@ export class AuthController {
     const token = this.jwtService.sign(payload);
     res.cookie('access_token', token);
     res.redirect(
-      `http://localhost:3001/${user.username}`,
+      `https://github-app-production-b24a.up.railway.app/${user.username}`,
     );
   }
 }
