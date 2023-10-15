@@ -6,7 +6,7 @@ const nextConfig = {
     domains: ['avatars.githubusercontent.com']
   },
   env: {
-    API_URL: 'http://localhost:3000/v1/',
+    API_URL: 'https://github-app-production-ecec.up.railway.app/v1/',
   },
 }
 
