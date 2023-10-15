@@ -20,7 +20,7 @@ let GithubStrategy = class GithubStrategy extends (0, passport_1.PassportStrateg
         super({
             clientID: configService.get('GITHUB_CLIENT_ID'),
             clientSecret: configService.get('GITHUB_CLIENT_SECRET'),
-            callbackURL: 'http://localhost:3000/auth/callback',
+            callbackURL: 'http://localhost:3000/v1/auth/callback',
             scope: ['public_profile'],
         });
     }

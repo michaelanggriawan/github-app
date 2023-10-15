@@ -1,9 +1,29 @@
-import { Controller, Get, Param, Post, Body, Req, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Post,
+  Body,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { AppService } from './app.service';
 import { ProfileDto } from 'dtos/profile.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiBearerAuth, ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiUnauthorizedResponse } from '@nestjs/swagger';
-import { GithubProfileResponse, NotFoundResponse, RepositoryResponse, UnauthorizedResponse, UserStatsResponse } from 'dtos/github-profile.dto';
+import {
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
+import {
+  GithubProfileResponse,
+  NotFoundResponse,
+  RepositoryResponse,
+  UnauthorizedResponse,
+  UserStatsResponse,
+} from 'dtos/github-profile.dto';
 
 @Controller({
   path: 'github',

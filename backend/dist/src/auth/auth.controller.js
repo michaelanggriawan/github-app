@@ -23,10 +23,12 @@ let AuthController = class AuthController {
     }
     async login() {
     }
-    async authCallback(req) {
+    async authCallback(req, res) {
         const user = req.user;
         const payload = { sub: user.id, username: user.username };
-        return { accessToken: this.jwtService.sign(payload) };
+        const token = this.jwtService.sign(payload);
+        res.cookie('access_token', token);
+        res.redirect(`http://localhost:3001/${user.username}`);
     }
 };
 exports.AuthController = AuthController;
@@ -42,12 +44,16 @@ __decorate([
     (0, common_1.Get)('callback'),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('github')),
     __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "authCallback", null);
 exports.AuthController = AuthController = __decorate([
-    (0, common_1.Controller)('auth'),
+    (0, common_1.Controller)({
+        path: 'auth',
+        version: '1',
+    }),
     __metadata("design:paramtypes", [jwt_1.JwtService])
 ], AuthController);
 //# sourceMappingURL=auth.controller.js.map

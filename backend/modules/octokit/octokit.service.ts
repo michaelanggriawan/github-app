@@ -69,7 +69,7 @@ export class OctokitService {
       );
 
       this.logger.info(JSON.stringify(response.data));
-      return response.data.slice(0, 3);
+      return response.data.slice(0, 6);
     } catch (err) {
       this.logger.error(err.response.data.message);
       if (err.status === HttpStatus.NOT_FOUND) {
