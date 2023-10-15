@@ -7,15 +7,9 @@ const breakpoints = {
 };
 
 const useBreakpoints = () => {
-  const [isSmallScreen, setIsSmallScreen] = useState(
-    window.matchMedia(breakpoints.small).matches
-  );
-  const [isMediumScreen, setIsMediumScreen] = useState(
-    window.matchMedia(breakpoints.medium).matches
-  );
-  const [isLargeScreen, setIsLargeScreen] = useState(
-    window.matchMedia(breakpoints.large).matches
-  );
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [isMediumScreen, setIsMediumScreen] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -24,11 +18,17 @@ const useBreakpoints = () => {
       setIsLargeScreen(window.matchMedia(breakpoints.large).matches);
     };
 
-    window.addEventListener('resize', handleResize);
+    // Check if we are on the client-side before attaching listeners
+    if (typeof window !== 'undefined') {
+      // Initial check
+      handleResize();
 
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
+      window.addEventListener('resize', handleResize);
+
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }
   }, []);
 
   return {

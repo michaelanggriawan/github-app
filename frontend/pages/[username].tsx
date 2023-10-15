@@ -43,7 +43,7 @@ export default function GithubProfile({ profile, repos }: { profile: Profile, re
         }
       } catch (err) {}
     })();
-  }, [isLoggedIn]);
+  }, [isLoggedIn, profile?.login]);
 
   return (
     <div className={`container mx-auto p-4 ${isSmallScreen ? 'flex justify-center' : ''}`}>
@@ -110,8 +110,8 @@ export default function GithubProfile({ profile, repos }: { profile: Profile, re
             </div>
             <div className="mt-4">
               {repos.map((repo, index) => (
-                <div className="mt-4 sm:w-full md:mt-0">
-                    <CardRepo url={repo.html_url} name={repo.name} key={index} isPrivate={repo.private} description={repo.description} languange={repo.language} updated_at={repo.updated_at}/>
+                <div className="mt-4 sm:w-full md:mt-0" key={index}>
+                    <CardRepo url={repo.html_url} name={repo.name} isPrivate={repo.private} description={repo.description} languange={repo.language} updated_at={repo.updated_at}/>
                 </div>
               ))}
             </div>
