@@ -1,4 +1,4 @@
-import useMedia from 'use-media';
+import { useEffect, useState } from 'react';
 
 const breakpoints = {
   small: '(max-width: 640px)',
@@ -7,9 +7,29 @@ const breakpoints = {
 };
 
 const useBreakpoints = () => {
-  const isSmallScreen = useMedia(breakpoints.small);
-  const isMediumScreen = useMedia(breakpoints.medium);
-  const isLargeScreen = useMedia(breakpoints.large);
+  const [isSmallScreen, setIsSmallScreen] = useState(
+    window.matchMedia(breakpoints.small).matches
+  );
+  const [isMediumScreen, setIsMediumScreen] = useState(
+    window.matchMedia(breakpoints.medium).matches
+  );
+  const [isLargeScreen, setIsLargeScreen] = useState(
+    window.matchMedia(breakpoints.large).matches
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.matchMedia(breakpoints.small).matches);
+      setIsMediumScreen(window.matchMedia(breakpoints.medium).matches);
+      setIsLargeScreen(window.matchMedia(breakpoints.large).matches);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return {
     isSmallScreen,
