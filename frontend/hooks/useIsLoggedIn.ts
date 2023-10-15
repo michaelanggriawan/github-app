@@ -5,7 +5,7 @@ const useIsLoggedIn = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const token = Cookies.get('access_token');
+    const token = localStorage.getItem('access_token')
     setIsLoggedIn(!!token);
   }, []);
 

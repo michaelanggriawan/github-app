@@ -7,6 +7,7 @@ const nextConfig = {
   },
   env: {
     API_URL: 'https://github-app-production-ecec.up.railway.app/v1/',
+    // API_URL: 'http://localhost:3000/v1/',
   },
 }
 

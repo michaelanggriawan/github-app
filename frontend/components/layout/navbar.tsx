@@ -4,7 +4,6 @@ import Logo from "../icons/logo";
 import Hamburger from "../icons/hamburger";
 import Close from "../icons/close";
 import useIsLoggedIn from "hooks/useIsLoggedIn";
-import Cookies from "js-cookie";
 import { Profile, RootProfile } from "@/types/profile";
 import { useRouter } from 'next/router';
 import useBreakpoints from "hooks/useBreakpoints";
@@ -18,16 +17,27 @@ function Navbar() {
 
   useEffect(() => {
     (async () => {
-      const token = Cookies.get("access_token");
+      const tokenQuery = router.query.accessToken;
+      if (tokenQuery) {
+        localStorage.setItem('access_token', tokenQuery.toString());
+        // Redirect without the accessToken query parameter
+        router.replace(router.asPath.split('?')[0]);
+      }
+      const token = localStorage.getItem('access_token');
       try {
         const response = await fetch(`${process.env.API_URL}github/profile`, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token || tokenQuery}`,
           },
         });
         const result: RootProfile = await response.json();
         setUserProfile(result.data);
-      } catch (err) {}
+      } catch (err) {
+        // when token expired
+        localStorage.removeItem("access_token");
+        router.push('/');
+        setIsLoggedIn(false);
+      }
     })();
   }, []);
 
@@ -50,7 +60,7 @@ function Navbar() {
   };
 
   const handleLogout = () => {
-    Cookies.remove("access_token");
+    localStorage.removeItem("access_token");
     router.push('/');
     setIsLoggedIn(false);
   };

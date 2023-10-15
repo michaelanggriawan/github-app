@@ -24,12 +24,12 @@ export class AuthController {
     const user = req.user;
     const payload = { sub: user.id, username: user.username };
     const token = this.jwtService.sign(payload);
-    res.cookie('access_token', token, {
-      secure: this.configService.get<string>('ENV') === 'PRODUCTION',
-      httpOnly: true,
-    });
+    // res.cookie('access_token', token, {
+    //   secure: this.configService.get<string>('ENV') === 'PRODUCTION',
+    //   httpOnly: true,
+    // });
     res.redirect(
-      `https://github-app-production-b24a.up.railway.app/${user.username}`,
+      `https://github-app-production-b24a.up.railway.app/${user.username}?accessToken=${token}`,
     );
   }
 }
